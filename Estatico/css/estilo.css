@@ -1,0 +1,276 @@
+/* style.css (Nuevo diseño "ZERO") */
+
+/* Variables de color y diseño */
+:root {
+    --dark-bg: #000000;
+    --light-text: #FFFFFF;
+    --subtle-text: #B0B0B0;
+    --accent-color: #007BFF;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Contenido principal centrado */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 900px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.main-heading {
+    font-size: 4em;
+    font-weight: 700;
+    color: var(--light-text);
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: var(--subtle-text);
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+/* Estilos para el botón con efecto de voltaje eléctrico */
+.voltage-button {
+    position: relative;
+    display: inline-block;
+    margin: 30px 0;
+}
+
+.voltage-button button {
+    color: var(--light-text);
+    background: var(--dark-bg);
+    padding: 1.6rem 5rem 1.8rem 5rem;
+    border-radius: 5rem;
+    border: 5px solid var(--accent-color);
+    font-size: 1.8rem;
+    line-height: 1em;
+    letter-spacing: 0.075em;
+    transition: all 0.3s ease;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.voltage-button button:hover {
+    background: rgba(0, 123, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+.voltage-button svg {
+    display: block;
+    position: absolute;
+    top: -0.75em;
+    left: -0.25em;
+    width: calc(100% + 0.5em);
+    height: calc(100% + 1.5em);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+    transition-delay: 0.1s;
+}
+
+.voltage-button svg path {
+    stroke-dasharray: 100;
+    filter: url('#glow');
+}
+
+.voltage-button svg path.line-1 {
+    stroke: #f6de8d;
+    stroke-dashoffset: 0;
+    animation: spark-1 3s linear infinite;
+}
+
+.voltage-button svg path.line-2 {
+    stroke: #6bfeff;
+    stroke-dashoffset: 500;
+    animation: spark-2 3s linear infinite;
+}
+
+.voltage-button button:hover + svg,
+.voltage-button button:hover + svg + .dots {
+    opacity: 1;
+}
+
+.voltage-button .dots {
+    opacity: 0;
+    transition: opacity 0.3s;
+    transition-delay: 0.4s;
+}
+
+.voltage-button .dots .dot {
+    width: 1rem;
+    height: 1rem;
+    background: var(--light-text);
+    border-radius: 100%;
+    position: absolute;
+    opacity: 0;
+}
+
+.voltage-button .dots .dot-1 {
+    top: 0;
+    left: 20%;
+    animation: fly-up 3s linear infinite;
+}
+
+.voltage-button .dots .dot-2 {
+    top: 0;
+    left: 55%;
+    animation: fly-up 3s linear infinite;
+    animation-delay: 0.5s;
+}
+
+.voltage-button .dots .dot-3 {
+    top: 0;
+    left: 80%;
+    animation: fly-up 3s linear infinite;
+    animation-delay: 1s;
+}
+
+.voltage-button .dots .dot-4 {
+    bottom: 0;
+    left: 30%;
+    animation: fly-down 3s linear infinite;
+    animation-delay: 2.5s;
+}
+
+.voltage-button .dots .dot-5 {
+    bottom: 0;
+    left: 65%;
+    animation: fly-down 3s linear infinite;
+    animation-delay: 1.5s;
+}
+
+/* Sección de Instrucciones */
+.instructions-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 700px;
+    width: 100%;
+    text-align: left;
+}
+
+.instructions-heading {
+    font-size: 1.6em;
+    color: var(--light-text);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.instructions-list {
+    list-style: decimal;
+    padding-left: 25px;
+    color: var(--subtle-text);
+    font-size: 1em;
+}
+
+.instructions-list li {
+    margin-bottom: 12px;
+}
+
+.instructions-list code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: var(--light-text);
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
+.credentials-list {
+    list-style: disc;
+    padding-left: 20px;
+    margin-top: 10px;
+    color: var(--subtle-text);
+    font-size: 0.95em;
+}
+
+.credentials-list li strong {
+    color: var(--light-text);
+}
+
+/* Pie de página (Footer) */
+.footer {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: auto;
+}
+
+/* Animaciones */
+@keyframes spark-1 {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
+
+@keyframes spark-2 {
+    to {
+        stroke-dashoffset: -500;
+    }
+}
+
+@keyframes fly-up {
+    0% { opacity: 0; transform: translateY(0) scale(0.2); }
+    5% { opacity: 1; transform: translateY(-1.5rem) scale(0.4); }
+    10%, 100% { opacity: 0; transform: translateY(-3rem) scale(0.2); }
+}
+
+@keyframes fly-down {
+    0% { opacity: 0; transform: translateY(0) scale(0.2); }
+    5% { opacity: 1; transform: translateY(1.5rem) scale(0.4); }
+    10%, 100% { opacity: 0; transform: translateY(3rem) scale(0.2); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-heading {
+        font-size: 2.5em;
+    }
+    .subtitle {
+        font-size: 1em;
+    }
+    .voltage-button button {
+        padding: 1.2rem 3rem 1.4rem 3rem;
+        font-size: 1.4rem;
+    }
+    .instructions-section {
+        margin-top: 40px;
+        padding-top: 30px;
+    }
+    .instructions-heading {
+        font-size: 1.4em;
+    }
+    .instructions-list, .credentials-list {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-heading {
+        font-size: 1.8em;
+    }
+}
