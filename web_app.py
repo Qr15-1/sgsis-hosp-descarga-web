@@ -1,32 +1,61 @@
 # web_app.py
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, abort
 import os
+from config import config
 
-# Configuración de Flask para que encuentre tus carpetas 'Plantillas' y 'Estatico'
-app = Flask(__name__, template_folder='Plantillas', static_folder='Estatico')
+def create_app(config_name='default'):
+    # Inicialización de la aplicación Flask
+    app = Flask(__name__,
+                template_folder=config[config_name].TEMPLATE_FOLDER,
+                static_folder=config[config_name].STATIC_FOLDER)
+    
+    # Aplicar configuración
+    app.config.from_object(config[config_name])
+    
+    # Asegurar que existe la carpeta de descargas
+    download_path = os.path.join(app.root_path, app.config['DOWNLOAD_FOLDER'])
+    if not os.path.exists(download_path):
+        os.makedirs(download_path)
+        print(f"Carpeta de descargas creada: {download_path}")
 
-# Ruta COMPLETA a la carpeta donde se encuentran los archivos para descargar
-DOWNLOAD_FOLDER = os.path.join(app.root_path, app.static_folder, 'descarga')
+    # Rutas de la aplicación
+    @app.route('/')
+    def index():
+        return render_template('index.html')
 
-# Asegura que la carpeta de descargas exista al iniciar la aplicación
-if not os.path.exists(DOWNLOAD_FOLDER):
-    os.makedirs(DOWNLOAD_FOLDER)
-    print(f"Carpeta de descargas creada: {DOWNLOAD_FOLDER}")
+    @app.route('/descargar/<filename>')
+    def download_file(filename):
+        try:
+            # Validación básica del nombre de archivo
+            if not filename or '..' in filename:
+                abort(404)
+            
+            # Configurar headers para caché
+            cache_timeout = app.config['SEND_FILE_MAX_AGE_DEFAULT']
+            
+            return send_from_directory(
+                download_path,
+                filename,
+                as_attachment=True,
+                max_age=cache_timeout
+            )
+        except Exception as e:
+            print(f"Error al descargar archivo: {str(e)}")
+            abort(404)
 
-# Ruta para la página de inicio (cuando alguien visita '/')
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-# Ruta para la descarga de archivos (cuando alguien visita '/descargar/nombre_archivo.exe')
-@app.route('/descargar/<filename>')
-def download_file(filename):
-    try:
-        return send_from_directory(DOWNLOAD_FOLDER, filename, as_attachment=True)
-    except FileNotFoundError:
+    @app.errorhandler(404)
+    def not_found_error(error):
         return "Archivo no encontrado.", 404
 
-# Bloque principal para ejecutar la aplicación Flask
+    @app.errorhandler(500)
+    def internal_error(error):
+        return "Error interno del servidor.", 500
+
+    return app
+
+# Crear y ejecutar la aplicación
 if __name__ == '__main__':
-    # `debug=True` es útil para el desarrollo: recarga el servidor automáticamente con los cambios
-    app.run(debug=True)
+    # Determinar el entorno (development por defecto)
+    env = os.environ.get('FLASK_ENV', 'development')
+    app = create_app(env)
+    app.run()

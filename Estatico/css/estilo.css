@@ -1,186 +1,103 @@
-/* style.css (Nuevo diseño "ZERO") */
+/* style.css (Diseño "ZERO by Freeze" completo) */
 
-/* Variables de color y diseño */
+/* Importar una fuente similar a la del diseño "ZERO" */
+/* Puedes descomentar y usar esta línea si quieres que la web cargue la fuente 'Inter' de Google Fonts.
+   Requiere conexión a internet para cargar la fuente. Si prefieres no depender de internet, déjala comentada. */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap'); */
+
 :root {
-    --dark-bg: #000000;
-    --light-text: #FFFFFF;
-    --subtle-text: #B0B0B0;
-    --accent-color: #007BFF;
+    --dark-bg: #000000; /* Fondo completamente negro */
+    --light-text: #FFFFFF; /* Texto blanco */
+    --subtle-text: #B0B0B0; /* Gris suave para subtítulos y detalles */
+    --accent-color: #007BFF; /* Color de acento azul (ej. para un botón futuro o enlace) */
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif; /* Prioriza Inter si se importa, sino fuentes del sistema */
     margin: 0;
     padding: 0;
     background-color: var(--dark-bg);
     color: var(--light-text);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: column; /* Contenido en columna para header, main, footer */
+    justify-content: space-between; /* Espacio entre los elementos principales */
     align-items: center;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Evita scroll horizontal */
 }
 
 /* Contenido principal centrado */
 .main-content {
-    flex-grow: 1;
+    flex-grow: 1; /* Ocupa el espacio restante en el centro */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px 20px;
+    padding: 40px 20px; /* Padding vertical y horizontal */
     max-width: 900px;
     width: 100%;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Incluye padding en el ancho */
 }
 
 .main-heading {
-    font-size: 4em;
-    font-weight: 700;
+    font-size: 4em; /* Tamaño grande para el título principal */
+    font-weight: 700; /* Más negrita */
     color: var(--light-text);
     margin-bottom: 20px;
-    line-height: 1.1;
+    line-height: 1.1; /* Espaciado de línea ajustado */
 }
 
 .subtitle {
     font-size: 1.2em;
     color: var(--subtle-text);
     margin-bottom: 40px;
-    max-width: 600px;
+    max-width: 600px; /* Ancho máximo para el subtítulo */
 }
 
-/* Estilos para el botón con efecto de voltaje eléctrico */
-.voltage-button {
-    position: relative;
+/* Botón de descarga - Estilo "ZERO" */
+.download-button {
     display: inline-block;
-    margin: 30px 0;
+    background-color: var(--light-text); /* Fondo blanco/claro */
+    color: var(--dark-bg); /* Texto negro */
+    padding: 15px 40px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra sutil para profundidad */
 }
 
-.voltage-button button {
-    color: var(--light-text);
-    background: var(--dark-bg);
-    padding: 1.6rem 5rem 1.8rem 5rem;
-    border-radius: 5rem;
-    border: 5px solid var(--accent-color);
-    font-size: 1.8rem;
-    line-height: 1em;
-    letter-spacing: 0.075em;
-    transition: all 0.3s ease;
-    outline: none;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+.download-button:hover {
+    background-color: var(--subtle-text); /* Ligeramente gris al pasar el ratón */
+    color: var(--dark-bg);
+    transform: translateY(-3px); /* Pequeño levantamiento */
 }
 
-.voltage-button button:hover {
-    background: rgba(0, 123, 255, 0.1);
-    transform: translateY(-3px);
-}
-
-.voltage-button svg {
-    display: block;
-    position: absolute;
-    top: -0.75em;
-    left: -0.25em;
-    width: calc(100% + 0.5em);
-    height: calc(100% + 1.5em);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s;
-    transition-delay: 0.1s;
-}
-
-.voltage-button svg path {
-    stroke-dasharray: 100;
-    filter: url('#glow');
-}
-
-.voltage-button svg path.line-1 {
-    stroke: #f6de8d;
-    stroke-dashoffset: 0;
-    animation: spark-1 3s linear infinite;
-}
-
-.voltage-button svg path.line-2 {
-    stroke: #6bfeff;
-    stroke-dashoffset: 500;
-    animation: spark-2 3s linear infinite;
-}
-
-.voltage-button button:hover + svg,
-.voltage-button button:hover + svg + .dots {
-    opacity: 1;
-}
-
-.voltage-button .dots {
-    opacity: 0;
-    transition: opacity 0.3s;
-    transition-delay: 0.4s;
-}
-
-.voltage-button .dots .dot {
-    width: 1rem;
-    height: 1rem;
-    background: var(--light-text);
-    border-radius: 100%;
-    position: absolute;
-    opacity: 0;
-}
-
-.voltage-button .dots .dot-1 {
-    top: 0;
-    left: 20%;
-    animation: fly-up 3s linear infinite;
-}
-
-.voltage-button .dots .dot-2 {
-    top: 0;
-    left: 55%;
-    animation: fly-up 3s linear infinite;
-    animation-delay: 0.5s;
-}
-
-.voltage-button .dots .dot-3 {
-    top: 0;
-    left: 80%;
-    animation: fly-up 3s linear infinite;
-    animation-delay: 1s;
-}
-
-.voltage-button .dots .dot-4 {
-    bottom: 0;
-    left: 30%;
-    animation: fly-down 3s linear infinite;
-    animation-delay: 2.5s;
-}
-
-.voltage-button .dots .dot-5 {
-    bottom: 0;
-    left: 65%;
-    animation: fly-down 3s linear infinite;
-    animation-delay: 1.5s;
+.download-button:active {
+    transform: translateY(0);
 }
 
 /* Sección de Instrucciones */
 .instructions-section {
     margin-top: 60px;
     padding-top: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria sutil */
     max-width: 700px;
     width: 100%;
-    text-align: left;
+    text-align: left; /* Alinear texto de instrucciones a la izquierda */
 }
 
 .instructions-heading {
     font-size: 1.6em;
     color: var(--light-text);
     margin-bottom: 25px;
-    text-align: center;
+    text-align: center; /* Título de instrucciones centrado */
 }
 
 .instructions-list {
-    list-style: decimal;
+    list-style: decimal; /* Números para la lista ordenada */
     padding-left: 25px;
     color: var(--subtle-text);
     font-size: 1em;
@@ -199,7 +116,7 @@ body {
 }
 
 .credentials-list {
-    list-style: disc;
+    list-style: disc; /* Viñetas para la lista de credenciales */
     padding-left: 20px;
     margin-top: 10px;
     color: var(--subtle-text);
@@ -207,7 +124,7 @@ body {
 }
 
 .credentials-list li strong {
-    color: var(--light-text);
+    color: var(--light-text); /* Las credenciales en negrita son blancas */
 }
 
 /* Pie de página (Footer) */
@@ -216,46 +133,21 @@ body {
     padding: 20px;
     text-align: center;
     font-size: 0.8em;
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: auto;
-}
-
-/* Animaciones */
-@keyframes spark-1 {
-    to {
-        stroke-dashoffset: -1000;
-    }
-}
-
-@keyframes spark-2 {
-    to {
-        stroke-dashoffset: -500;
-    }
-}
-
-@keyframes fly-up {
-    0% { opacity: 0; transform: translateY(0) scale(0.2); }
-    5% { opacity: 1; transform: translateY(-1.5rem) scale(0.4); }
-    10%, 100% { opacity: 0; transform: translateY(-3rem) scale(0.2); }
-}
-
-@keyframes fly-down {
-    0% { opacity: 0; transform: translateY(0) scale(0.2); }
-    5% { opacity: 1; transform: translateY(1.5rem) scale(0.4); }
-    10%, 100% { opacity: 0; transform: translateY(3rem) scale(0.2); }
+    color: rgba(255, 255, 255, 0.5); /* Color más tenue para el pie de página */
+    margin-top: auto; /* Empuja el footer al final */
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .main-heading {
-        font-size: 2.5em;
+        font-size: 2.5em; /* Reducir tamaño de título en móviles */
     }
     .subtitle {
         font-size: 1em;
     }
-    .voltage-button button {
-        padding: 1.2rem 3rem 1.4rem 3rem;
-        font-size: 1.4rem;
+    .download-button {
+        padding: 12px 30px;
+        font-size: 1em;
     }
     .instructions-section {
         margin-top: 40px;
