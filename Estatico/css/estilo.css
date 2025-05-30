@@ -3,27 +3,62 @@
 /* Importar una fuente similar a la del diseño "ZERO" */
 /* Puedes descomentar y usar esta línea si quieres que la web cargue la fuente 'Inter' de Google Fonts.
    Requiere conexión a internet para cargar la fuente. Si prefieres no depender de internet, déjala comentada. */
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'); */
 
 :root {
-    --dark-bg: #000000; /* Fondo completamente negro */
-    --light-text: #FFFFFF; /* Texto blanco */
-    --subtle-text: #B0B0B0; /* Gris suave para subtítulos y detalles */
-    --accent-color: #007BFF; /* Color de acento azul (ej. para un botón futuro o enlace) */
+    /* Colores principales */
+    --dark-bg: #000000;           /* Fondo negro puro */
+    --light-text: #FFFFFF;        /* Texto blanco puro */
+    --subtle-text: #B0B0B0;       /* Texto gris suave para detalles */
+    --accent-color: #007BFF;      /* Color de acento para elementos interactivos */
+    
+    /* Colores de hover y estados */
+    --hover-bg: rgba(255, 255, 255, 0.1);    /* Fondo al pasar el mouse */
+    --card-bg: rgba(255, 255, 255, 0.05);    /* Fondo de las tarjetas */
+    --border-subtle: rgba(255, 255, 255, 0.1); /* Color para bordes sutiles */
+    
+    /* Espaciado y dimensiones */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 40px;
+    --spacing-xl: 60px;
+    
+    /* Bordes y sombras */
+    --border-radius: 8px;
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    
+    /* Transiciones */
+    --transition-speed: 0.3s;
+    --transition-timing: ease;
+}
+
+/* Estilos base y reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Inter', 'Segoe UI', Arial, sans-serif; /* Prioriza Inter si se importa, sino fuentes del sistema */
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: var(--dark-bg);
     color: var(--light-text);
     display: flex;
-    flex-direction: column; /* Contenido en columna para header, main, footer */
-    justify-content: space-between; /* Espacio entre los elementos principales */
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     min-height: 100vh;
-    overflow-x: hidden; /* Evita scroll horizontal */
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Contenido principal centrado */
@@ -34,7 +69,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px 20px; /* Padding vertical y horizontal */
+    padding: var(--spacing-lg) var(--spacing-md);
     max-width: 900px;
     width: 100%;
     box-sizing: border-box; /* Incluye padding en el ancho */
@@ -44,14 +79,14 @@ body {
     font-size: 4em; /* Tamaño grande para el título principal */
     font-weight: 700; /* Más negrita */
     color: var(--light-text);
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-md);
     line-height: 1.1; /* Espaciado de línea ajustado */
 }
 
 .subtitle {
     font-size: 1.2em;
     color: var(--subtle-text);
-    margin-bottom: 40px;
+    margin-bottom: var(--spacing-lg);
     max-width: 600px; /* Ancho máximo para el subtítulo */
 }
 
@@ -60,13 +95,15 @@ body {
     display: inline-block;
     background-color: var(--light-text); /* Fondo blanco/claro */
     color: var(--dark-bg); /* Texto negro */
-    padding: 15px 40px;
+    padding: var(--spacing-md) var(--spacing-lg);
     font-size: 1.1em;
     font-weight: bold;
     text-decoration: none;
-    border-radius: 8px; /* Bordes ligeramente redondeados */
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra sutil para profundidad */
+    border-radius: var(--border-radius); /* Bordes ligeramente redondeados */
+    transition: background-color var(--transition-speed) var(--transition-timing),
+                color var(--transition-speed) var(--transition-timing),
+                transform 0.2s var(--transition-timing);
+    box-shadow: var(--box-shadow); /* Sombra sutil para profundidad */
 }
 
 .download-button:hover {
@@ -81,9 +118,9 @@ body {
 
 /* Sección de Instrucciones */
 .instructions-section {
-    margin-top: 60px;
-    padding-top: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria sutil */
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-subtle); /* Línea divisoria sutil */
     max-width: 700px;
     width: 100%;
     text-align: left; /* Alinear texto de instrucciones a la izquierda */
@@ -92,24 +129,24 @@ body {
 .instructions-heading {
     font-size: 1.6em;
     color: var(--light-text);
-    margin-bottom: 25px;
+    margin-bottom: var(--spacing-lg);
     text-align: center; /* Título de instrucciones centrado */
 }
 
 .instructions-list {
     list-style: decimal; /* Números para la lista ordenada */
-    padding-left: 25px;
+    padding-left: var(--spacing-lg);
     color: var(--subtle-text);
     font-size: 1em;
 }
 
 .instructions-list li {
-    margin-bottom: 12px;
+    margin-bottom: var(--spacing-sm);
 }
 
 .instructions-list code {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 2px 5px;
+    background-color: var(--card-bg);
+    padding: var(--spacing-xs) var(--spacing-xs);
     border-radius: 4px;
     color: var(--light-text);
     font-family: 'Consolas', 'Courier New', monospace;
@@ -117,8 +154,8 @@ body {
 
 .credentials-list {
     list-style: disc; /* Viñetas para la lista de credenciales */
-    padding-left: 20px;
-    margin-top: 10px;
+    padding-left: var(--spacing-md);
+    margin-top: var(--spacing-sm);
     color: var(--subtle-text);
     font-size: 0.95em;
 }
@@ -130,10 +167,10 @@ body {
 /* Pie de página (Footer) */
 .footer {
     width: 100%;
-    padding: 20px;
+    padding: var(--spacing-md);
     text-align: center;
     font-size: 0.8em;
-    color: rgba(255, 255, 255, 0.5); /* Color más tenue para el pie de página */
+    color: var(--subtle-text); /* Color más tenue para el pie de página */
     margin-top: auto; /* Empuja el footer al final */
 }
 
@@ -146,12 +183,12 @@ body {
         font-size: 1em;
     }
     .download-button {
-        padding: 12px 30px;
+        padding: var(--spacing-sm) var(--spacing-lg);
         font-size: 1em;
     }
     .instructions-section {
-        margin-top: 40px;
-        padding-top: 30px;
+        margin-top: var(--spacing-lg);
+        padding-top: var(--spacing-lg);
     }
     .instructions-heading {
         font-size: 1.4em;
@@ -159,10 +196,92 @@ body {
     .instructions-list, .credentials-list {
         font-size: 0.9em;
     }
+    .features-heading {
+        font-size: 1.8em;
+    }
+    .features-list li {
+        font-size: 1em;
+        padding: var(--spacing-md);
+    }
 }
 
 @media (max-width: 480px) {
     .main-heading {
         font-size: 1.8em;
+    }
+    .features-heading {
+        font-size: 1.5em;
+    }
+    .features-list li {
+        font-size: 0.9em;
+        padding: var(--spacing-sm);
+    }
+}
+
+/* Estilos para la sección de Características */
+.features-section {
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    max-width: 800px;
+    width: 100%;
+    text-align: left; /* Alinear texto de las características a la izquierda */
+    padding: 0 var(--spacing-md);
+    box-sizing: border-box;
+}
+
+.features-heading {
+    font-size: 2em; /* Tamaño del título de características */
+    font-weight: 600;
+    color: var(--light-text);
+    text-align: center; /* Centrar el título */
+    margin-bottom: var(--spacing-lg);
+}
+
+.features-list {
+    list-style: none; /* Eliminar viñetas por defecto */
+    padding: 0;
+    margin: 0;
+}
+
+.features-list li {
+    background-color: var(--card-bg); /* Fondo muy sutil para cada ítem */
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: var(--subtle-text);
+    transition: background-color var(--transition-speed) var(--transition-timing);
+}
+
+.features-list li:hover {
+    background-color: var(--hover-bg); /* Ligeramente más oscuro al pasar el ratón */
+}
+
+.features-list li strong {
+    color: var(--light-text); /* Texto fuerte en blanco */
+    font-weight: 700;
+    display: block; /* Para que el título de la característica ocupe su propia línea */
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Ajustes responsivos para la nueva sección */
+@media (max-width: 768px) {
+    .features-heading {
+        font-size: 1.8em;
+    }
+    .features-list li {
+        font-size: 1em;
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .features-heading {
+        font-size: 1.5em;
+    }
+    .features-list li {
+        font-size: 0.9em;
+        padding: var(--spacing-sm);
     }
 }
